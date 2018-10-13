@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Web;
 using System.Web.UI;
+using AccountControl;
 
 namespace AccountControl
 {
@@ -11,10 +12,7 @@ namespace AccountControl
         {
             if(Request.Cookies[".ASPXAUTH"] == null)
             { 
-                if(Authenticate())
-                {
-
-                }
+                cMessage.Text = Authenticate() ? "Integration with Altinn works!" : "Integration with Altinn FAILED :-/";
             }
         }
 
@@ -26,8 +24,10 @@ namespace AccountControl
             if (!vFailed)
             {
                 var sOrigin = String.Format("{0}/auth/callback", ConfigurationManager.AppSettings["origin"]);
+                var sUserNID = ConfigurationManager.AppSettings["UserNID"];
                 var sHost = ConfigurationManager.AppSettings[String.Format("Uri{0}",ConfigurationManager.AppSettings["env"])];
-                var sAuthUrl = String.Format("{0}/Pages/ExternalAuthentication/Redirect.aspx?returnUrl={1}", sHost, Server.UrlEncode(sOrigin));
+                var sAuthUrl = String.Format("{0}/Pages/ExternalAuthentication/Redirect.aspx?returnUrl={1}&userToken={2}", 
+                    sHost, Server.UrlEncode(sOrigin), SHA.ToSHA256(sUserNID));
                 if (Session["IDPSecurityPortal"] != null)
                 {
                     Response.Cookies.Add(new HttpCookie("IDPSecurityPortal", Session["IDPSecurityPortal"].ToString()));

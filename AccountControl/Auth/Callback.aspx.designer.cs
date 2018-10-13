@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AccountControl {
+namespace AccountControl.Auth {
     
     
-    public partial class _Default {
+    public partial class Callback {
         
         /// <summary>
         /// cMessagePanel control.
