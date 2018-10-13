@@ -23,7 +23,7 @@ namespace AccountControl.Auth
                 sMessage += String.Format("IDPSecurityPortal: {0}", Session["IDPSecurityPortal"].ToString());
             }
             cMessage.Text = String.IsNullOrEmpty(sMessage) ? "Failure" : sMessage;
-            //Response.RedirectLocation = "/";
+            Response.Redirect("/");
         }
     }
 }
