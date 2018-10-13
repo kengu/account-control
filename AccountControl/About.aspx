@@ -14,5 +14,4 @@
             <tr><td>Origins:</td><td><%: ConfigurationManager.AppSettings["Origins"] %></td></tr>
         </tbody>
     </table>
-
 </asp:Content>
