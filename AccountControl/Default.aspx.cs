@@ -12,7 +12,7 @@ namespace AccountControl
         {
             if(Request.Cookies[".ASPXAUTH"] == null)
             { 
-                cMessage.Text = Authenticate() ? "Integration with Altinn works!" : "Integration with Altinn FAILED :-/";
+                cMessage.Text = Authenticate() ? "Integration with Altinn FAILED :-/" : "Integration with Altinn works!";
             }
         }
 
