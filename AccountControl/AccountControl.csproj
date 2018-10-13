@@ -153,7 +153,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PrivateSettings.config" />
-    <None Include="Properties\PublishProfiles\SaveSolutions-AccountControl - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Cruxd-AccountControl - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
