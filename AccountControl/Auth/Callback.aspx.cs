@@ -13,7 +13,6 @@ namespace AccountControl.Auth
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Request.
             var sMessage = "";
             if (Request.Cookies[".ASPXAUTH"] != null)
             {

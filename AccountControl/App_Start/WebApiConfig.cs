@@ -14,7 +14,7 @@ namespace AccountControl
         public static void Register(HttpConfiguration config)
         {
             // Enable tracing
-            config.EnableSystemDiagnosticsTracing();
+            config.EnableSystemDiagnosticsTracing().MinimumLevel=System.Web.Http.Tracing.TraceLevel.Debug;
 
             // Required by Altinn auth
             var vCors = new EnableCorsAttribute(ConfigurationManager.AppSettings["origins"], "*", "*");
