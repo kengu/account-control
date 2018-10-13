@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Cors;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace AccountControl.Auth
 {
+    [EnableCors(origins: "https://www.accountcontrol.no", headers: "*", methods: "*", SupportsCredentials = true)]
     public partial class Callback : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)

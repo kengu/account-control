@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Web;
+using System.Web.Http.Cors;
 using System.Web.UI;
 using AccountControl;
 
