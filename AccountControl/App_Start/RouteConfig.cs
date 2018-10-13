@@ -13,6 +13,7 @@ namespace AccountControl
             var settings = new FriendlyUrlSettings();
             settings.AutoRedirectMode = RedirectMode.Permanent;
             routes.EnableFriendlyUrls(settings);
+            routes.MapPageRoute("auth_callback", "auth/callback", "~/Auth/Callback.aspx");
         }
     }
 }
