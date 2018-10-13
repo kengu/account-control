@@ -34,6 +34,9 @@ namespace AccountControl
                     Response.Cookies.Add(new HttpCookie("IDPSecurityPortal", Session["IDPSecurityPortal"].ToString()));
                 }
                 Session["AuthRetries"] = vRetries + 1;
+                var vOrigins = ConfigurationManager.AppSettings["origins"];
+                Response.AddHeader("Access-Control-Allow-Origin", vOrigins);
+                Response.AddHeader("Access-Control-Allow-Credentials", "true");
                 Response.Redirect(sAuthUrl);
             }
             return vFailed;

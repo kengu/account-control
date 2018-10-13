@@ -8,6 +8,7 @@
             <p class="lead"><asp:Literal runat="server" id="cMessage"></asp:Literal></p>
         </asp:PlaceHolder>
         <p><a href="https://altinn.github.io/docs/guides/integrasjon/sluttbrukere/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <p><a href="https://altinn.github.io/docs/guides/integrasjon/sluttbrukere/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
     <div class="row">
