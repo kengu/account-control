@@ -26,8 +26,8 @@ namespace AccountControl
             if (!vFailed)
             {
                 var sOrigin = String.Format("{0}/auth/callback", ConfigurationManager.AppSettings["origin"]);
-                var sHost = ConfigurationManager.AppSettings[String.Format("Url{0}",ConfigurationManager.AppSettings["origin"])];
-                var sAuthUrl = String.Format("https://{0}/Pages/ExternalAuthentication/Redirect.aspx?returnUrl={1}", sHost, Server.UrlEncode(sOrigin));
+                var sHost = ConfigurationManager.AppSettings[String.Format("Uri{0}",ConfigurationManager.AppSettings["env"])];
+                var sAuthUrl = String.Format("{0}/Pages/ExternalAuthentication/Redirect.aspx?returnUrl={1}", sHost, Server.UrlEncode(sOrigin));
                 if (Session["IDPSecurityPortal"] != null)
                 {
                     Response.Cookies.Add(new HttpCookie("IDPSecurityPortal", Session["IDPSecurityPortal"].ToString()));
