@@ -24,6 +24,7 @@
             })
             .done(function (data) {
                 console.log(data);
+                $(element).empty();
                 $(element).json2html(data._embedded[list], transform);
             });
         }
@@ -125,7 +126,7 @@
                 </code>
             </p>            
             <p>
-                <a class="btn btn-default" href="#" onclick="let id=$('#reporteeid').val();AjaxRequest(`${id}/messages`, 'reportees', {'<>':'li','html':'${ReporteeId} ${Name} ${Type}'},'#reporteemessagelist')">Get reportees</a>
+                <a class="btn btn-default" href="#" onclick="let id=$('#reporteeid').val();AjaxRequest(`${id}/messages`, 'messages', {'<>':'li','html':'${MessageId} ${Subject} ${Type}'},'#reporteemessagelist')">Get reportees</a>
                 <label>Reportee ID: <input type="text" id="reporteeid" style="width: 120px;"/></label>
             </p>
             <ul id="reporteemessagelist"></ul>        
