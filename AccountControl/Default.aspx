@@ -3,6 +3,32 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">    
 
+    <script language="javascript">
+        function GetMessages() {
+            $.ajax({
+                url: "<%: AccountControl.AppSettings.GetAltinnApiUri("my/messages") %>",
+                method: "GET",
+                crossDomain: true,
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "ApiKey": "<%: AccountControl.AppSettings.GetApiKey() %>",
+                    "Access-Control-Allow-Origin": "<%: AccountControl.AppSettings.GetOrigin() %>",
+                    "Accept": "application/hal+json",
+                    "Content-Type": "application/hal+json"
+                },
+                xhrFields: {
+                    withCredentials: true
+                }
+            })
+            .done(function (data) {
+                console.log(data);
+            });
+        }
+
+
+    </script>
+
+
     <div class="jumbotron">
         <h1>Dashboard</h1>
         <asp:PlaceHolder runat="server" ID="cMessagePanel">
@@ -13,12 +39,32 @@
 
     <div class="row">
         <div class="col-md-4">
-            <h2>Getting started</h2>
+            <h2>Get my messages</h2>
             <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
+                Messages in <a href="https://altinn.github.io/docs/guides/integrasjon/sluttbrukere/api/meldinger/">MessageBox</a> are fetched with:
             </p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a></p>
+            <p>
+                <code style="font-size: 8pt; font-family: monospace; display: block; white-space: pre-wrap">
+    $.ajax({
+        url: "<%: AccountControl.AppSettings.GetAltinnApiUri("my/messages") %>",
+        method: "GET",
+        crossDomain: true,
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "ApiKey": "<%: AccountControl.AppSettings.GetApiKey() %>",
+            "Access-Control-Allow-Origin": "<%: AccountControl.AppSettings.GetOrigin() %>",
+            "Accept": "application/hal+json",
+            "Content-Type": "application/hal+json"
+        },
+        xhrFields: {
+            withCredentials: true
+        }})
+        .done(function(data) {
+            console.log(data);
+        })
+                </code>
+            </p>            
+            <p><a class="btn btn-default" href="#" onclick="GetMessages()">Get meesages</a></p>
         </div>
         <div class="col-md-4">
             <h2>Get more libraries</h2>
