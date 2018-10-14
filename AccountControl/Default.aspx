@@ -2,11 +2,13 @@
 
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">    
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/1.2.0/json2html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.json2html/1.2.0/jquery.json2html.min.js"></script>
     <script language="javascript">
-        function GetMessages() {
+        function AjaxRequest(uri, list, transform, element) {
+            var url = `<%:AccountControl.AppSettings.GetAltinnApiUri("")%>${uri}`;
             $.ajax({
-                url: "<%: AccountControl.AppSettings.GetAltinnApiUri("my/messages") %>",
+                url: url,
                 method: "GET",
                 crossDomain: true,
                 headers: {
@@ -22,9 +24,9 @@
             })
             .done(function (data) {
                 console.log(data);
+                $(element).json2html(data._embedded[list], transform);
             });
         }
-
 
     </script>
 
@@ -44,7 +46,7 @@
                 Messages in <a href="https://altinn.github.io/docs/guides/integrasjon/sluttbrukere/api/meldinger/">MessageBox</a> are fetched with:
             </p>
             <p>
-                <code style="font-size: 8pt; font-family: monospace; display: block; white-space: pre-wrap">
+                <code style="font-size: 7pt; font-family: monospace; display: block; white-space: pre-wrap">
     $.ajax({
         url: "<%: AccountControl.AppSettings.GetAltinnApiUri("my/messages") %>",
         method: "GET",
@@ -64,26 +66,71 @@
         })
                 </code>
             </p>            
-            <p><a class="btn btn-default" href="#" onclick="GetMessages()">Get meesages</a></p>
+            <p><a class="btn btn-default" href="#" onclick="AjaxRequest('my/messages', 'messages', {'<>':'span','html':'${MessageId} ${Subject} ${Type}'},'mymessageslist')">Get meesages</a></p>
+            <ul id="mymessageslist"></ul>
         </div>
         <div class="col-md-4">
-            <h2>Get more libraries</h2>
+            <h2>Get reportees</h2>
             <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
+                Authorized reportees are fetched with:
             </p>
             <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
-            </p>
+                <code style="font-size: 7pt; font-family: monospace; display: block; white-space: pre-wrap">
+    $.ajax({
+        url: "<%: AccountControl.AppSettings.GetAltinnApiUri("reportees") %>",
+        method: "GET",
+        crossDomain: true,
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "ApiKey": "<%: AccountControl.AppSettings.GetApiKey() %>",
+            "Access-Control-Allow-Origin": "<%: AccountControl.AppSettings.GetOrigin() %>",
+            "Accept": "application/hal+json",
+            "Content-Type": "application/hal+json"
+        },
+        xhrFields: {
+            withCredentials: true
+        }})
+        .done(function(data) {
+            console.log(data);
+        })
+                </code>
+            </p>            
+            <p><a class="btn btn-default" href="#" onclick="AjaxRequest('reportees', 'reportees', {'<>':'span','html':'${ReporteeId} ${Name} ${Type}'},'reporteeslist')">Get reportees</a></p>
+            <ul id="reporteeslist"></ul>        
         </div>
         <div class="col-md-4">
-            <h2>Web Hosting</h2>
+            <h2>Get reportee messages</h2>
             <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
+                Messages for authorized reportee are fetched with:
             </p>
             <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
+                <code style="font-size: 7pt; font-family: monospace; display: block; white-space: pre-wrap">
+    $.ajax({
+        url: "<%: AccountControl.AppSettings.GetAltinnApiUri("{reporteeID}/messages") %>",
+        method: "GET",
+        crossDomain: true,
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "ApiKey": "<%: AccountControl.AppSettings.GetApiKey() %>",
+            "Access-Control-Allow-Origin": "<%: AccountControl.AppSettings.GetOrigin() %>",
+            "Accept": "application/hal+json",
+            "Content-Type": "application/hal+json"
+        },
+        xhrFields: {
+            withCredentials: true
+        }})
+        .done(function(data) {
+            console.log(data);
+        })
+                </code>
+            </p>            
+            <p>
+                <a class="btn btn-default" href="#" onclick="let id=$('#reporteeid').val();AjaxRequest(`${id}/messages`, 'reportees', {'<>':'span','html':'${ReporteeId} ${Name} ${Type}'},'reporteemessagelist')">Get reportees</a>
+                <label>Reportee ID: <input type="text" id="reporteeid" style="width: 120px;"/></label>
             </p>
+            <ul id="reporteemessagelist"></ul>        
         </div>
+        
     </div>
 
 </asp:Content>
