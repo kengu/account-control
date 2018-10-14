@@ -25,7 +25,13 @@
             .done(function (data) {
                 console.log(data);
                 $(element).empty();
-                $(element).json2html(list ? data._embedded[list] : data, transform);
+                if (!list) {
+                    $(element).json2html(data, transform);
+                } else if (list == '_links') {
+                    $(element).json2html(data._links, transform);
+                } else {
+                    $(element).json2html(list ? data._embedded[list] : data, transform);
+                }
             });
         }
 
