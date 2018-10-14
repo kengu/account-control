@@ -27,13 +27,6 @@
                 data = extract(data);
                 $(element).json2html(data, transform);
                 $(element).empty();
-                if (!list) {
-                    $(element).json2html(data, transform);
-                } else if (list == '_links') {
-                    $(element).json2html(data._links, transform);
-                } else {
-                    $(element).json2html(list ? data._embedded[list] : data, transform);
-                }
             });
         }
 
