@@ -25,7 +25,7 @@
             .done(function (data) {
                 console.log(data);
                 $(element).empty();
-                $(element).json2html(data._embedded[list], transform);
+                $(element).json2html(list ? data._embedded[list] : data, transform);
             });
         }
 
@@ -179,7 +179,7 @@
             withCredentials: true
         }})
         .done(function(data) {
-            console.log(data);
+            console.log(data["_links"]["form"]);
         })
                 </code>
             </p>            
@@ -187,43 +187,10 @@
                 <label>Reportee ID: <input type="text" id="reportee2id" style="width: 120px;"/></label>
                 <label>Message ID: <input type="text" id="messageid" style="width: 120px;"/></label>
             </p>
-            <p><a class="btn btn-default" href="#" onclick="let rid=$('#reportee2id').val();let mid=$('#messageid').val();AjaxRequestJson(`${rid}/messages/${rid}`, 'forms', {'<>':'li','html':'${href} ${name}'},'#forms')">Get forms</a></p>
+            <p><a class="btn btn-default" href="#" onclick="let rid=$('#reportee2id').val();let mid=$('#messageid').val();AjaxRequestJson(`${rid}/messages/${mid}`, '_links.form', {'<>':'li','html':'${href} ${name}'},'#forms')">Get forms</a></p>
             <ul id="forms"></ul>
         </div>        
         <div class="col-md-4">
-            <h2>Get form metadata</h2>
-            <p>
-                Form metadata in a spesific message for a authorized reportee is fetched with:
-            </p>
-            <p>
-                <code style="font-size: 7pt; font-family: monospace; display: block; white-space: pre-wrap">
-    $.ajax({
-        url: `${altinn}/api/${reporteeID/messages/${messageID}`,
-        method: "GET",
-        crossDomain: true,
-        headers: {
-            "X-Requested-With": "XMLHttpRequest",
-            "ApiKey": "<%: AccountControl.AppSettings.GetApiKey() %>",
-            "Access-Control-Allow-Origin": "<%: AccountControl.AppSettings.GetOrigin() %>",
-            "Accept": "application/hal+json",
-            "Content-Type": "application/hal+json"
-        },
-        xhrFields: {
-            withCredentials: true
-        }})
-        .done(function(data) {
-            console.log(data);
-        })
-                </code>
-            </p>            
-            <p>
-                <label>Reportee ID: <input type="text" id="reportee2id" style="width: 120px;"/></label>
-                <label>Message ID: <input type="text" id="messageid" style="width: 120px;"/></label>
-            </p>
-            <p><a class="btn btn-default" href="#" onclick="let rid=$('#reportee2id').val();let mid=$('#messageid').val();AjaxRequestJson(`${rid}/messages/${mid}`, 'forms', {'<>':'li','html':'${href} ${name}'},'#form')">Get forms</a></p>
-            <ul id="form"></ul>
-        </div>
-         <div class="col-md-4">
             <h2>Get form XML payload</h2>
             <p>
                 Form XML payload in a spesific message for a authorized reportee:
