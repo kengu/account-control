@@ -238,7 +238,7 @@
                 <label>Message ID: <input type="text" id="message2id" style="width: 120px;"/></label>
                 <label>Form ID: <input type="text" id="formid" style="width: 120px;"/></label>
             </p>
-            <p><a class="btn btn-default" href="#" onclick="AjaxRequestXml($(let rid=$('#reportee3id').val();let mid=$('#message2id').val();let fid=$('#formid').val();AjaxRequestJson(`${rid}/messages/${mid}/forms/${fid}/formdata`, '#formdata')">Get formdata</a></p>
+            <p><a class="btn btn-default" href="#" onclick="AjaxRequestXml(let rid=$('#reportee3id').val();let mid=$('#message2id').val();let fid=$('#formid').val();`${rid}/messages/${mid}/forms/${fid}/formdata`, '#formdata')">Get formdata</a></p>
             <code id="formdata" style="font-size: 7pt; font-family: monospace; display: block; white-space: pre-wrap"></code>
         </div>
     </div>
