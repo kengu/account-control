@@ -54,7 +54,7 @@
                 .done(function (data) {
                     console.log(data);
                     $(element).empty();
-                    $(element).html(data);
+                    $(element).html((new XMLSerializer()).serializeToString(data));
                 });
         }
     </script>
@@ -193,7 +193,7 @@
                 <label>Reportee ID: <input type="text" id="reportee2id" style="width: 120px;"/></label>
                 <label>Message ID: <input type="text" id="messageid" style="width: 120px;"/></label>
             </p>
-            <p><a class="btn btn-default" href="#" onclick="let rid=$('#reportee2id').val();let mid=$('#messageid').val();AjaxRequestJson(`${rid}/messages/${mid}`, '_links', {'<>':'li','text':function() { $.json2html(this.children,{'<>':'span','html':'${href} ${name}'}}},'#forms')">Get forms</a></p>
+            <p><a class="btn btn-default" href="#" onclick="let rid=$('#reportee2id').val();let mid=$('#messageid').val();AjaxRequestJson(`${rid}/messages/${mid}`, '_links', {'<>':'li','text':function() { return $.json2html(this.children,{'<>':'span','html':'${href} ${name}'})}},'#forms')">Get forms</a></p>
             <ul id="forms"></ul>
         </div>        
         <div class="col-md-4">
