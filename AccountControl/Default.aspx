@@ -231,9 +231,14 @@
                 </code>
             </p>            
             <p>
-                <label>Formdata URL: <input type="text" id="formdataurl" style="width: 200px;"/></label>
+                <label>Formdata URL: <input type="text" id="formdataurl" style="width: 265px;"/></label>
             </p>
-            <p><a class="btn btn-default" href="#" onclick="AjaxRequestXml($('#formdataurl').val(), '#formdata')">Get formdata</a></p>
+            <p>
+                <label>Reportee ID: <input type="text" id="reportee3id" style="width: 120px;"/></label>
+                <label>Message ID: <input type="text" id="message2id" style="width: 120px;"/></label>
+                <label>Form ID: <input type="text" id="formid" style="width: 120px;"/></label>
+            </p>
+            <p><a class="btn btn-default" href="#" onclick="AjaxRequestXml($(let rid=$('#reportee3id').val();let mid=$('#message2id').val();let fid=$('#formid').val();AjaxRequestJson(`${rid}/messages/${mid}/forms/${fid}/formdata`, '#formdata')">Get formdata</a></p>
             <code id="formdata" style="font-size: 7pt; font-family: monospace; display: block; white-space: pre-wrap"></code>
         </div>
     </div>
