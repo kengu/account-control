@@ -7,7 +7,7 @@ namespace AccountControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            cMessage.Text = Authenticate() ? "Integration with Altinn FAILED :-/" : "Integration with Altinn works!";
+            cMessage.Text = Authenticate() ? "Integration with Altinn FAILED :-/" : string.Format("Integration with Altinn works! User <b>{0}</b>)", AppSettings.GetUserNID());
         }
 
         protected bool Authenticate()
