@@ -171,7 +171,7 @@
     </div>
 
     <div class="row">  
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h2>Get forms</h2>
             <p>
                 Forms in a spesific message for a authorized reportee is fetched with:
@@ -204,7 +204,7 @@
             <p><a class="btn btn-default" href="#" onclick="let rid=$('#reportee2id').val();let mid=$('#messageid').val();AjaxRequestJson(`${rid}/messages/${mid}`, GetForms, {'<>':'li','html': '${href} ${name}'},'#forms')">Get forms</a></p>
             <ul id="forms"></ul>
         </div>        
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h2>Get form XML payload</h2>
             <p>
                 Form XML payload in a spesific message for a authorized reportee:
