@@ -25,8 +25,8 @@
             .done(function (data) {
                 console.log(data);
                 data = extract(data);
-                $(element).json2html(data, transform);
                 $(element).empty();
+                $(element).json2html(data, transform);
             });
         }
 
