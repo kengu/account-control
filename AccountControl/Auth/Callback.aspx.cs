@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -25,6 +26,9 @@ namespace AccountControl.Auth
                 sMessage += String.Format("IDPSecurityPortal: {0}", Session["IDPSecurityPortal"].ToString());
             }
             cMessage.Text = String.IsNullOrEmpty(sMessage) ? "Failure" : sMessage;
+            var vOrigins = ConfigurationManager.AppSettings["origins"];
+            Response.AddHeader("Access-Control-Allow-Origin", vOrigins);
+            Response.AddHeader("Access-Control-Allow-Credentials", "true");
             Response.Redirect("/");
         }
     }

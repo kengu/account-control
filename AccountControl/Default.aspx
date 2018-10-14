@@ -1,13 +1,25 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="AccountControl._Default" %>
 
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript">
+        function Reset() {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "Default.aspx/Reset",
+                success: function (count) {
+                    alert(count);
+                }
+            });      
+        };
+    </script>
 
     <div class="jumbotron">
         <h1>Dashboard</h1>
         <asp:PlaceHolder runat="server" ID="cMessagePanel">
             <p class="lead"><asp:Literal runat="server" id="cMessage"></asp:Literal></p>
         </asp:PlaceHolder>
-        <p><a href="https://altinn.github.io/docs/guides/integrasjon/sluttbrukere/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
         <p><a href="https://altinn.github.io/docs/guides/integrasjon/sluttbrukere/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
@@ -19,7 +31,8 @@
             A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
             </p>
             <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
+                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>                
+                <input type="button" onclick="Reset()" value="Nullstill"/>
             </p>
         </div>
         <div class="col-md-4">
