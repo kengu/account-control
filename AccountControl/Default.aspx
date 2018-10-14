@@ -204,7 +204,7 @@
             </table>
             <p><a class="btn btn-default" href="#" onclick="let rid=$('#reportee2id').val();let mid=$('#messageid').val();AjaxRequestJson(`${rid}/messages/${mid}`, GetForms, {'<>':'li','html': '${href} ${name}'},'#forms')">Get forms</a></p>
             <ul id="forms"></ul>
-        </div>        
+        </div>
         <div class="col-md-6">
             <h2>Get form XML payload</h2>
             <p>
