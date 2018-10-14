@@ -43,7 +43,8 @@
         }
 
 
-        function AjaxRequestXml(url, element) {
+        function AjaxRequestXml(uri, element) {
+            let url = `<%:AccountControl.AppSettings.GetAltinnApiUri("")%>${uri}`;
             $.ajax({
                 url: url,
                 method: "GET",
