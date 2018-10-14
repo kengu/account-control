@@ -5,7 +5,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/1.2.0/json2html.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.json2html/1.2.0/jquery.json2html.min.js"></script>
     <script language="javascript">
-        function AjaxRequestJson(uri, list, transform, element) {
+        function AjaxRequestJson(uri, extract, transform, element) {
             let url = `<%:AccountControl.AppSettings.GetAltinnApiUri("")%>${uri}`;
             $.ajax({
                 url: url,
@@ -24,6 +24,8 @@
             })
             .done(function (data) {
                 console.log(data);
+                data = extract(data);
+                $(element).json2html(data, transform);
                 $(element).empty();
                 if (!list) {
                     $(element).json2html(data, transform);
@@ -34,6 +36,19 @@
                 }
             });
         }
+
+        function GetMessages(data) {
+            return data._embedded.messages;
+        }
+
+        function GetReportees(data) {
+            return data._embedded.reportees;
+        }
+
+        function GetForms(data) {
+            return data._links.form;
+        }
+
 
         function AjaxRequestXml(url, element) {
             $.ajax({
@@ -91,11 +106,11 @@
             withCredentials: true
         }})
         .done(function(data) {
-            console.log(data);
+            console.log(data["_embedded"]["messages"]);
         })
                 </code>
             </p>            
-            <p><a class="btn btn-default" href="#" onclick="AjaxRequestJson('my/messages', 'messages', {'<>':'li','html':'${MessageId} ${Subject} ${Type}'},'#mymessageslist')">Get meesages</a></p>
+            <p><a class="btn btn-default" href="#" onclick="AjaxRequestJson('my/messages', GetMessages, {'<>':'li','html':'${MessageId} ${Subject} ${Type}'},'#mymessageslist')">Get meesages</a></p>
             <ul id="mymessageslist"></ul>
         </div>
         <div class="col-md-4">
@@ -124,7 +139,7 @@
         })
                 </code>
             </p>            
-            <p><a class="btn btn-default" href="#" onclick="AjaxRequestJson('reportees', 'reportees', {'<>':'li','html':'${ReporteeId} ${Name} ${Type}'},'#reporteeslist')">Get reportees</a></p>
+            <p><a class="btn btn-default" href="#" onclick="AjaxRequestJson('reportees', GetReportees, {'<>':'li','html':'${ReporteeId} ${Name} ${Type}'},'#reporteeslist')">Get reportees</a></p>
             <ul id="reporteeslist"></ul>        
         </div>
         <div class="col-md-4">
@@ -154,7 +169,7 @@
                 </code>
             </p>            
             <p>
-                <a class="btn btn-default" href="#" onclick="let id=$('#reporteeid').val();AjaxRequestJson(`${id}/messages`, 'messages', {'<>':'li','html':'${MessageId} ${Subject} ${Type}'},'#reporteemessagelist')">Get messages</a>
+                <a class="btn btn-default" href="#" onclick="let id=$('#reporteeid').val();AjaxRequestJson(`${id}/messages`, GetMessages, {'<>':'li','html':'${MessageId} ${Subject} ${Type}'},'#reporteemessagelist')">Get messages</a>
                 <label>Reportee ID: <input type="text" id="reporteeid" style="width: 120px;"/></label>
             </p>
             <ul id="reporteemessagelist"></ul>        
@@ -193,7 +208,7 @@
                 <label>Reportee ID: <input type="text" id="reportee2id" style="width: 120px;"/></label>
                 <label>Message ID: <input type="text" id="messageid" style="width: 120px;"/></label>
             </p>
-            <p><a class="btn btn-default" href="#" onclick="let rid=$('#reportee2id').val();let mid=$('#messageid').val();AjaxRequestJson(`${rid}/messages/${mid}`, '_links', {'<>':'li','text':function() { return $.json2html(this.children,{'<>':'span','html':'${href} ${name}'})}},'#forms')">Get forms</a></p>
+            <p><a class="btn btn-default" href="#" onclick="let rid=$('#reportee2id').val();let mid=$('#messageid').val();AjaxRequestJson(`${rid}/messages/${mid}`, GetForms, {'<>':'li','html': '${href} ${name}'},'#forms')">Get forms</a></p>
             <ul id="forms"></ul>
         </div>        
         <div class="col-md-4">
@@ -226,7 +241,7 @@
                 <label>Formdata URL: <input type="text" id="formdataurl" style="width: 200px;"/></label>
             </p>
             <p><a class="btn btn-default" href="#" onclick="AjaxRequestXml($('#formdataurl').val(), '#formdata')">Get formdata</a></p>
-            <code id="formdata"></code>
+            <code id="formdata" style="font-size: 7pt; font-family: monospace; display: block; white-space: pre-wrap"></code>
         </div>
     </div>
 </asp:Content>
