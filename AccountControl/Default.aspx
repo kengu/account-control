@@ -66,7 +66,7 @@
         })
                 </code>
             </p>            
-            <p><a class="btn btn-default" href="#" onclick="AjaxRequest('my/messages', 'messages', {'<>':'span','html':'${MessageId} ${Subject} ${Type}'},'mymessageslist')">Get meesages</a></p>
+            <p><a class="btn btn-default" href="#" onclick="AjaxRequest('my/messages', 'messages', {'<>':'li','html':'${MessageId} ${Subject} ${Type}'},'#mymessageslist')">Get meesages</a></p>
             <ul id="mymessageslist"></ul>
         </div>
         <div class="col-md-4">
@@ -95,7 +95,7 @@
         })
                 </code>
             </p>            
-            <p><a class="btn btn-default" href="#" onclick="AjaxRequest('reportees', 'reportees', {'<>':'span','html':'${ReporteeId} ${Name} ${Type}'},'reporteeslist')">Get reportees</a></p>
+            <p><a class="btn btn-default" href="#" onclick="AjaxRequest('reportees', 'reportees', {'<>':'li','html':'${ReporteeId} ${Name} ${Type}'},'#reporteeslist')">Get reportees</a></p>
             <ul id="reporteeslist"></ul>        
         </div>
         <div class="col-md-4">
@@ -125,7 +125,7 @@
                 </code>
             </p>            
             <p>
-                <a class="btn btn-default" href="#" onclick="let id=$('#reporteeid').val();AjaxRequest(`${id}/messages`, 'reportees', {'<>':'span','html':'${ReporteeId} ${Name} ${Type}'},'reporteemessagelist')">Get reportees</a>
+                <a class="btn btn-default" href="#" onclick="let id=$('#reporteeid').val();AjaxRequest(`${id}/messages`, 'reportees', {'<>':'li','html':'${ReporteeId} ${Name} ${Type}'},'#reporteemessagelist')">Get reportees</a>
                 <label>Reportee ID: <input type="text" id="reporteeid" style="width: 120px;"/></label>
             </p>
             <ul id="reporteemessagelist"></ul>        
