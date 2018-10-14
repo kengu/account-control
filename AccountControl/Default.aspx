@@ -54,7 +54,7 @@
                 .done(function (data) {
                     console.log(data);
                     $(element).empty();
-                    $(element).html((new XMLSerializer()).serializeToString(data));
+                    $(element).text((new XMLSerializer()).serializeToString(data));
                 });
         }
     </script>
