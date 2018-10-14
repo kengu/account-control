@@ -1,19 +1,7 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="AccountControl._Default" %>
 
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <script type="text/javascript">
-        function Reset() {
-            $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: "Default.aspx/Reset",
-                success: function (count) {
-                    alert(count);
-                }
-            });      
-        };
-    </script>
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">    
 
     <div class="jumbotron">
         <h1>Dashboard</h1>
@@ -30,10 +18,7 @@
                 ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
             A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
             </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>                
-                <input type="button" onclick="Reset()" value="Nullstill"/>
-            </p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a></p>
         </div>
         <div class="col-md-4">
             <h2>Get more libraries</h2>

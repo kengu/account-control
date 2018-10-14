@@ -17,24 +17,19 @@ namespace AccountControl
 
         protected void LoginButton_Authenticate(object sender, EventArgs e)
         {
-            int vRetries = Session["AuthRetries"] == null ? 0 : int.Parse(Session["AuthRetries"].ToString());
-            if ((vRetries < 2))
+            var sOrigin = String.Format("{0}/auth/callback", ConfigurationManager.AppSettings["origin"]);
+            var sUserNID = UserName.Text;
+            var sHost = ConfigurationManager.AppSettings[String.Format("Uri{0}", ConfigurationManager.AppSettings["env"])];
+            var sAuthUrl = String.Format("{0}/Pages/ExternalAuthentication/Redirect.aspx?returnUrl={1}&userToken={2}",
+                sHost, Server.UrlEncode(sOrigin), SHA.ToSHA256(sUserNID));
+            if (Session["IDPSecurityPortal"] != null)
             {
-                var sOrigin = String.Format("{0}/auth/callback", ConfigurationManager.AppSettings["origin"]);
-                var sUserNID = UserName.Text;
-                var sHost = ConfigurationManager.AppSettings[String.Format("Uri{0}", ConfigurationManager.AppSettings["env"])];
-                var sAuthUrl = String.Format("{0}/Pages/ExternalAuthentication/Redirect.aspx?returnUrl={1}&userToken={2}",
-                    sHost, Server.UrlEncode(sOrigin), SHA.ToSHA256(sUserNID));
-                if (Session["IDPSecurityPortal"] != null)
-                {
-                    Response.Cookies.Add(new HttpCookie("IDPSecurityPortal", Session["IDPSecurityPortal"].ToString()));
-                }
-                Session["AuthRetries"] = vRetries + 1;
-                var vOrigins = ConfigurationManager.AppSettings["origins"];
-                Response.AddHeader("Access-Control-Allow-Origin", vOrigins);
-                Response.AddHeader("Access-Control-Allow-Credentials", "true");
-                Response.Redirect(sAuthUrl);
+                Response.Cookies.Add(new HttpCookie("IDPSecurityPortal", Session["IDPSecurityPortal"].ToString()));
             }
+            var vOrigins = ConfigurationManager.AppSettings["origins"];
+            Response.AddHeader("Access-Control-Allow-Origin", vOrigins);
+            Response.AddHeader("Access-Control-Allow-Credentials", "true");
+            Response.Redirect(sAuthUrl);
         }
     }
 }

@@ -20,20 +20,9 @@ namespace AccountControl
             bool bAuthenticate = Request.Cookies[".ASPXAUTH"] == null;
             if (bAuthenticate)
             {
-                int vRetries = Session["AuthRetries"] == null ? 0 : int.Parse(Session["AuthRetries"].ToString());
-                if ((vRetries < 3))
-                {
-                    Response.RedirectToRoute("auth_login");
-                }
+                Response.RedirectToRoute("auth_login");
             }
             return !bAuthenticate;
         }
-
-        [WebMethod]
-        public static void Reset()
-        {
-            HttpContext.Current.Session["AuthRetries"] = 0;
-        }
-
     }
 }
